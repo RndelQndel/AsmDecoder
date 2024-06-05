@@ -2,9 +2,18 @@
 #include "arm.h"
 #include "elf.h"
 
+void print_usage(const char *name) {
+    std::cerr << "Usage: " << name << " [-p path] [-a arch]\n";
+}
+
 int main(int argc, char **argv) {
     std::string filename;
     uint32_t parse_flags = 0, arch_val = 0;
+
+    if (argc < 2) {
+        print_usage(argv[0]);
+        return ERROR_INVALID_OPTION;
+    }
 
     for (int i = 1; i < argc; i++) {
         std::string arg = argv[i];
@@ -27,7 +36,7 @@ int main(int argc, char **argv) {
                 return ERROR_INVALID_OPTION;
             }
         } else {
-            std::cerr << "Usage: " << argv[0] << " [-p path]\n";
+            print_usage(argv[0]);
             return ERROR_INVALID_OPTION;
         }
     }
