@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Project name and version
-project(ArmDecoder VERSION 1.0)
+project(AsmDecoder VERSION 1.0)
 
 # C++ standard Configuration
 set(CMAKE_CXX_STANDARD 17)

@@ -1,5 +1,5 @@
 # CMakeLists.txt
-project(ArmDecoder)
+project(AsmDecoder)
 # cmake version
 cmake_minimum_required(VERSION 3.10)
 
@@ -10,14 +10,14 @@ set(BUILD_SRC_LISTS
 )
 
 # add executable
-add_executable(ArmDecoder ${BUILD_SRC_LISTS})
+add_executable(AsmDecoder ${BUILD_SRC_LISTS})
 
 # set properties
 message(STATUS "CMAKE_RUNTIME_OUTPUT_DIRECTORY: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-set_target_properties(ArmDecoder PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+set_target_properties(AsmDecoder PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 # set include directories
-target_include_directories(ArmDecoder PRIVATE ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(AsmDecoder PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
 # current build type flags
 if(CMAKE_BUILD_TYPE STREQUAL "Release")

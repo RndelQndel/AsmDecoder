@@ -1,13 +1,13 @@
-# ArmDecoder
+# AsmDecoder
 
-ArmDecoder is a project written in C++.
+AsmDecoder is a project written in C++.
 
 ## Usage
 
 1. Clone this project.
-2. Open the main.cpp file.
-3. Build and run the code.
-4. Verify that "Hello, World!" is printed.
+2. cmake -DCMAKE_BUILD_TYPE=[build_feature] .
+3. cmake --build .
+4. run ./build/[build_feature]/AsmDecoder
 
 ## Contribution
 
