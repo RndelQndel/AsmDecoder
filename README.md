@@ -5,15 +5,18 @@ AsmDecoder is a project written in C++.
 ## Usage
 
 1. Clone this project.
+```bash
+git clone https://github.com/RndelQndel/AsmDecoder.git
+```
 2. Cmake init
 ```bash 
 cmake -DCMAKE_BUILD_TYPE=[Debug|Release] .
 ```
-3. Cmake build
+1. Cmake build
 ```bash 
 cmake --build .
 ```
-4. run 
+1. run 
 ```bash 
 ./build/[build_feature]/AsmDecoder
 ```
