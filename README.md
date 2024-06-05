@@ -8,12 +8,15 @@ AsmDecoder is a project written in C++.
 2. Cmake init
 ```bash 
 cmake -DCMAKE_BUILD_TYPE=[build_feature] .
+```
 3. Cmake build
 ```bash 
 cmake --build .
+```
 4. run 
 ```bash 
 ./build/[build_feature]/AsmDecoder
+```
 
 ## Contribution
 
