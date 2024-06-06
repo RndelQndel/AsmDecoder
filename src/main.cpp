@@ -1,6 +1,6 @@
 
 #include "arm.h"
-#include "elf.h"
+#include "elf_32.h"
 
 void print_usage(const char *name) {
     std::cerr << "Usage: " << name << " [-p path] [-a arch]\n";
@@ -20,6 +20,7 @@ int main(int argc, char **argv) {
         if (((arg == "-p") || (arg == "--path")) && i + 1 < argc) {
             filename = argv[++i];
             parse_flags |= DECODER_OPTION_PATH;
+            std::cout << "Path: " << filename << "\n";
         } else if (((arg == "-a") || (arg == "--arch")) && i + 1 < argc) {
             std::string arch = argv[++i];
             if (arch == "arm") {
@@ -42,7 +43,7 @@ int main(int argc, char **argv) {
     }
 
     if (parse_flags & DECODER_OPTION_PATH) {
-        elf e(filename);
+        elf_32 e(filename);
         e.load();
 
         if (arch_val == DECODER_ARCH_ARM) {
