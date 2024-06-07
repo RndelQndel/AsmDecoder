@@ -3,16 +3,7 @@
 
 #define _ELF_32_H_
 
-#include <cstdint>
-#include <cstdio>
-#include <cstring>
-#include <iostream>
-#include <map>
-#include <memory>
-#include <string>
-#include <vector>
-
-#include "common.h"
+#include "elf.h"
 
 typedef struct _elf_header_32_ {
     uint8_t e_ident[16];  // ELF Identification
@@ -81,7 +72,7 @@ typedef struct _elf_symbol_32 {
     std::string name;            // Symbol name
 } elf_symbol_32, *p_elf_symbol_32;
 
-class elf_32 {
+class elf_32 : public elf {
   private:
     elf_header_32 header;
     std::string filename;
@@ -93,8 +84,8 @@ class elf_32 {
     std::map<uint32_t, elf_symbol_32> symbols; // Address to symbol
 
   public:
-    elf_32(const std::string &filename);
-    ~elf_32();
+    elf_32(const std::string &file_path) : filename(file_path) {}
+    ~elf_32() {}
 
     void load();
 };

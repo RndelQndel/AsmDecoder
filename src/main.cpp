@@ -1,6 +1,6 @@
 
 #include "arm.h"
-#include "elf_32.h"
+#include "elf_loader.h"
 
 void print_usage(const char *name) {
     std::cerr << "Usage: " << name << " [-p path] [-a arch]\n";
@@ -26,9 +26,9 @@ int main(int argc, char **argv) {
             if (arch == "arm") {
                 std::cout << "ARM architecture selected\n";
                 arch_val = DECODER_ARCH_ARM;
-            } else if (arch == "x86-64") {
-                std::cout << "x86-64 architecture selected\n";
-                arch_val = DECODER_ARCH_x86_64;
+            } else if (arch == "x86") {
+                std::cout << "x86 architecture selected\n";
+                arch_val = DECODER_ARCH_x86;
             } else if (arch == "powerpc") {
                 std::cout << "PowerPC architecture selected\n";
                 arch_val = DECODER_ARCH_POWERPC;
@@ -43,12 +43,11 @@ int main(int argc, char **argv) {
     }
 
     if (parse_flags & DECODER_OPTION_PATH) {
-        elf_32 e(filename);
-        e.load();
+        elf_loader elf(filename);
 
         if (arch_val == DECODER_ARCH_ARM) {
             // ARM-specific code
-        } else if (arch_val == DECODER_ARCH_x86_64) {
+        } else if (arch_val == DECODER_ARCH_x86) {
             // x86-64 specific code
         } else if (arch_val == DECODER_ARCH_POWERPC) {
             // PowerPC specific code
