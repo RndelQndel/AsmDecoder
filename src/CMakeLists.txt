@@ -6,7 +6,9 @@ cmake_minimum_required(VERSION 3.10)
 # set Source files
 set(BUILD_SRC_LISTS
     main.cpp
-    elf.cpp
+    elf_32.cpp
+    elf_64.cpp
+    elf_loader.cpp
 )
 
 # add executable
