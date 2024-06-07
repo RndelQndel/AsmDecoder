@@ -17,7 +17,7 @@ endif()
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Werror")
 
 # Enable optimizations for Release build
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Werror")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Werror -Wno-missing-braces")
 
 # Set the output directory for the executable
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")

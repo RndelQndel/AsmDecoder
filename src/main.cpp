@@ -2,13 +2,55 @@
 #include "arm.h"
 #include "elf_loader.h"
 
+void print_elf_info(const elf_loader &elf) {
+    std::cout << "====ELF File Successfully Loaded====\n";
+    std::cout << "ELF file: " << elf.get_filename() << "\n";
+
+    if (elf.get_is_64bit()) {
+        std::cout << "64-bit ELF\n";
+    } else {
+        std::cout << "32-bit ELF\n";
+    }
+
+    if (elf.get_data() == ELFDATA2LSB) {
+        std::cout << "Little-endian\n";
+    } else if (elf.get_data() == ELFDATA2MSB) {
+        std::cout << "Big-endian\n";
+    }
+
+    switch (elf.get_machine()) {
+    case EM_ARM: {
+        std::cout << "ARM\n";
+        break;
+    }
+    case EM_RISCV: {
+        std::cout << "RISC-V\n";
+        break;
+    }
+    case EM_386: {
+        std::cout << "x86\n";
+        break;
+    }
+    case EM_X86_64: {
+        std::cout << "x86-64\n";
+        break;
+    }
+    default: {
+        std::cout << "Unknown\n";
+        break;
+    }
+    }
+
+    std::cout << "====================================\n";
+}
+
 void print_usage(const char *name) {
-    std::cerr << "Usage: " << name << " [-p path] [-a arch]\n";
+    std::cerr << "Usage: " << name << " [-p path]\n";
 }
 
 int main(int argc, char **argv) {
     std::string filename;
-    uint32_t parse_flags = 0, arch_val = 0;
+    uint32_t parse_flags = 0;
 
     if (argc < 2) {
         print_usage(argv[0]);
@@ -21,21 +63,6 @@ int main(int argc, char **argv) {
             filename = argv[++i];
             parse_flags |= DECODER_OPTION_PATH;
             std::cout << "Path: " << filename << "\n";
-        } else if (((arg == "-a") || (arg == "--arch")) && i + 1 < argc) {
-            std::string arch = argv[++i];
-            if (arch == "arm") {
-                std::cout << "ARM architecture selected\n";
-                arch_val = DECODER_ARCH_ARM;
-            } else if (arch == "x86") {
-                std::cout << "x86 architecture selected\n";
-                arch_val = DECODER_ARCH_x86;
-            } else if (arch == "powerpc") {
-                std::cout << "PowerPC architecture selected\n";
-                arch_val = DECODER_ARCH_POWERPC;
-            } else {
-                std::cerr << "Unsupported architecture: " << arch << "\n";
-                return ERROR_INVALID_OPTION;
-            }
         } else {
             print_usage(argv[0]);
             return ERROR_INVALID_OPTION;
@@ -45,16 +72,16 @@ int main(int argc, char **argv) {
     if (parse_flags & DECODER_OPTION_PATH) {
         elf_loader elf(filename);
 
-        if (arch_val == DECODER_ARCH_ARM) {
-            // ARM-specific code
-        } else if (arch_val == DECODER_ARCH_x86) {
-            // x86-64 specific code
-        } else if (arch_val == DECODER_ARCH_POWERPC) {
-            // PowerPC specific code
+        elf.load();
+
+        if (elf.get_is_loaded() == false) {
+            std::cerr << "Failed to load ELF file\n";
+            return ERROR_INVALID_FILE;
         } else {
-            std::cerr << "Invalid architecture selected\n";
-            return ERROR_INVALID_OPTION;
+            print_elf_info(elf);
         }
+
+        // RUN DECODER
     }
 
     return 0;
